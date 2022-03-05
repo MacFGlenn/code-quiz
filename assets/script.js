@@ -1,6 +1,7 @@
 var quizContainer = document.getElementById("quiz");
 var resulstsContainer = document.getElementById("results");
 var submitButton = document.getElementById("submit");
+submitButton.style.visibility = "hidden";
 var myQuestions = [
   {
     question: "Commonly used data types do not include: ",
@@ -56,6 +57,20 @@ var myQuestions = [
     correctAnswer: "d",
   },
 ];
+
+var startButton = document.getElementById("start");
+var timer = document.getElementById("timer");
+var time = 60;
+
+var countdown = function () {
+  timer.textContent = "Time: " + time;
+  if (time > 0) {
+    time--;
+  } else if (time <= 0) {
+    clearInterval();
+    // game over function
+  }
+};
 
 var generateQuiz = function (
   questions,
@@ -116,6 +131,7 @@ var generateQuiz = function (
         answerContainers[i].style.color = "lightgreen';";
       } else {
         answerContainers[i].style.color = "red";
+        time -= 5;
       }
     }
 
@@ -124,10 +140,17 @@ var generateQuiz = function (
 
   showQuestions(questions, quizContainer);
 
-  submitButton.addEventListener(
-    "click",
-    showResulsts(questions, quizContainer, resulstsContainer)
-  );
+  submitButton.onclick = function () {
+    showResulsts(questions, quizContainer, resulstsContainer);
+  };
 };
 
-generateQuiz(myQuestions, quizContainer, resulstsContainer, submitButton);
+// generateQuiz(myQuestions, quizContainer, resulstsContainer, submitButton);
+startButton.onclick = function () {
+  startButton.style.visibility = "hidden";
+  submitButton.style.visibility = "visible";
+  setInterval(() => {
+    countdown();
+  }, 1000);
+  generateQuiz(myQuestions, quizContainer, resulstsContainer, submitButton);
+};
