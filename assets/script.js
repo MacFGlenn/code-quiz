@@ -27,22 +27,22 @@ var answers5 = ["JavaScript", "terminal/bash", "for loops", "console.log"];
 var answers = [answers1, answers2, answers3, answers4, answers5];
 
 var startQuiz = function (event) {
-  if ((event.target.id = "#start")) {
+  console.log(event.target.className);
+  if ((event.target.className = "starts")) {
     // remove p and start button
     introP.parentNode.removeChild(introP);
     event.target.parentNode.removeChild(event.target);
 
     // change h1 to 1st question
     // add 4 buttons for answers
-    nextSet(questions, answers);
+    question2(event);
 
     // start timer countdown
     setInterval(() => {
       countdown();
     }, 1000);
-  } else if (event.target.className = "answer") {
-      nextSet(question[1], answer[1]);
-      console.log("damn");
+  } else if ((event.target.className = ".answer")) {
+    console.log("damn");
   }
 };
 
@@ -64,7 +64,7 @@ var nextAnswers = function (array) {
     btn.textContent = array[i];
     btn.id = i;
     btn.className = "answer";
-    document.body.appendChild(btn);
+    pageContentEl.appendChild(btn);
   }
 };
 
@@ -89,5 +89,12 @@ var correct = function (event) {
   // move to next questions set
 };
 
+var question2 = function (event) {
+    if (event.target.id = 0) {
+        nextQuestion(question[1]);
+        nextAnswers(answer[1]);
+    }
+}
+
 pageContentEl.addEventListener("click", startQuiz);
-// correctAnswer.addEventListener("click", correct);
+pageContentEl.addEventListener("click", question2);
