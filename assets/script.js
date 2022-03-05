@@ -1,10 +1,14 @@
 var pageContentEl = document.querySelector("#page-content");
-var questionText = document.querySelector("#main-text");
+var questionText = document.querySelector("#question-text");
 var introP = document.querySelector("#encouragement");
 var timer = document.querySelector("#timer");
 var time = 5;
 var points = 0;
 var correctAnswer = document.querySelector("#correct");
+var answer1 = document.querySelector("#answer1");
+var answer2 = document.querySelector("#answer2");
+var answer3 = document.querySelector("#answer3");
+var answer4 = document.querySelector("#answer4");
 
 var questions = [
   "Commonly used data types do not include: ",
@@ -14,58 +18,35 @@ var questions = [
   "A very useful tool used during development and debugging for printing content to the debugger is: ",
 ];
 
-var answers1 = ["strings", "booleans", "alerts", "number"];
-var answers2 = ["quotes", "curly brackets", "paraenthesis", "square brackets"];
-var answers3 = [
+var answersList1 = ["strings", "booleans", "alerts", "number"];
+var answersList2 = [
+  "quotes",
+  "curly brackets",
+  "paraenthesis",
+  "square brackets",
+];
+var answersList3 = [
   "numbers and strings",
   "other arrays",
   "booleans",
   "all of the above",
 ];
-var answers4 = ["commas", "curly brackets", "quotes", "paraenthesis"];
-var answers5 = ["JavaScript", "terminal/bash", "for loops", "console.log"];
-var answers = [answers1, answers2, answers3, answers4, answers5];
+var answersList4 = ["commas", "curly brackets", "quotes", "paraenthesis"];
+var answersList5 = ["JavaScript", "terminal/bash", "for loops", "console.log"];
+// var answers = [answers1, answers2, answers3, answers4, answers5];
 
 var startQuiz = function (event) {
-  console.log(event.target.className);
-  if ((event.target.className = "starts")) {
-    // remove p and start button
-    introP.parentNode.removeChild(introP);
-    event.target.parentNode.removeChild(event.target);
+  // remove intro text
+  pageContentEl.remove();
 
-    // change h1 to 1st question
-    // add 4 buttons for answers
-    question2(event);
+  // add first question and answers
+  questionText.textContent = questions[0];
+  answer1.textContent = answersList1[0];
 
-    // start timer countdown
-    setInterval(() => {
-      countdown();
-    }, 1000);
-  } else if ((event.target.className = ".answer")) {
-    console.log("damn");
-  }
-};
-
-var nextSet = function (question, answer) {
-  for (i = 0; i < question.length; i++) {
-    //   answer[i].className += "answers";
-    nextQuestion(question[i]);
-    nextAnswers(answer[i]);
-  }
-};
-
-var nextQuestion = function (array) {
-  questionText.textContent = array;
-};
-
-var nextAnswers = function (array) {
-  for (i = 0; i < array.length; i++) {
-    var btn = document.createElement("button");
-    btn.textContent = array[i];
-    btn.id = i;
-    btn.className = "answer";
-    pageContentEl.appendChild(btn);
-  }
+  // start timer countdown
+  setInterval(() => {
+    countdown();
+  }, 1000);
 };
 
 var countdown = function () {
@@ -89,12 +70,6 @@ var correct = function (event) {
   // move to next questions set
 };
 
-var question2 = function (event) {
-    if (event.target.id = 0) {
-        nextQuestion(question[1]);
-        nextAnswers(answer[1]);
-    }
-}
-
 pageContentEl.addEventListener("click", startQuiz);
-pageContentEl.addEventListener("click", question2);
+
+console.log(questions[0]);
